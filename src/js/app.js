@@ -37,20 +37,19 @@ class Game {
 
   moveToRandomCell() {
     const cells = document.querySelectorAll('.cell');
-    const newPosition = Math.floor(Math.random() * cells.length);
-
-    if (newPosition === this.currentPosition && cells.length > 1) {
-      this.moveToRandomCell();
-      return;
-    }
+    let newPosition;
+  
+    do {
+        newPosition = Math.floor(Math.random() * cells.length);
+    } while (newPosition === this.currentPosition && cells.length > 1);
 
     if (this.currentPosition !== null) {
-      cells[this.currentPosition].innerHTML = '';
+        cells[this.currentPosition].innerHTML = '';
     }
 
     cells[newPosition].appendChild(this.gnomeElement);
     this.currentPosition = newPosition;
-  }
+  }  
 
   startMoving() {
     this.intervalId = setInterval(() => {
